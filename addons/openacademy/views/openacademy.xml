@@ -152,17 +152,18 @@
         </record>
 
         <!-- Gantt view - Enterprise Version only -->
-        <record model="ir.ui.view" id="session_gantt_view">
-            <field name="name">session.gantt</field>
-            <field name="model">openacademy.session</field>
-            <field name="arch" type="xml">
-                <gantt string="Session Gantt" color="course_id"
-                       date_start="start_date" date_delay="hours"
-                       default_group_by='instructor_id'>
+        <!-- 19:11 31/01/2018 => LAV => disabled for odoo v.11 -->
+        <!-- <record model="ir.ui.view" id="session_gantt_view"> -->
+            <!-- <field name="name">session.gantt</field> -->
+            <!-- <field name="model">openacademy.session</field> -->
+            <!-- <field name="arch" type="xml"> -->
+                <!-- <gantt string="Session Gantt" color="course_id" -->
+                       <!-- date_start="start_date" date_delay="hours" -->
+                       <!-- default_group_by='instructor_id'> -->
                     <!-- <field name="name"/> this is not required after Odoo 10.0 -->
-                </gantt>
-            </field>
-        </record>
+                <!-- </gantt> -->
+            <!-- </field> -->
+        <!-- </record> -->
 
         <!-- Graph view -->
         <record model="ir.ui.view" id="openacademy_session_graph_view">

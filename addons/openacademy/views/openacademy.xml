@@ -117,6 +117,12 @@
                                 <field name="seats"/>
                                 <field name="taken_seats" widget="progressbar"/>
                             </group>
+                            <!-- <<<<< 04:24 01/02/2018 LAV => Adicional features -->
+                            <group string="Session Resources and Doc's">
+                                <field name="upload_file" filename="file_name"/>
+                                <field name="file_name" invisible="1"/>
+                            </group>
+                            <!-- 04:24 01/02/2018 LAV => Adicional features >>>>> -->
                         </group>
                         <label for="attendee_ids"/>
                         <field name="attendee_ids"/>

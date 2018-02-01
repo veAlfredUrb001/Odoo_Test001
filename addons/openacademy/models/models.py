@@ -73,6 +73,13 @@ class Session(models.Model):
 
     attendees_count = fields.Integer(string="Attendees count", compute='_get_attendees_count', store=True)
 
+    # <<<<< 04:24 01/02/2018 LAV => Adicional features
+    upload_file = fields.Binary(string="Upload File")
+    file_name = fields.Char(string="File Name")
+    # 04:24 01/02/2018 LAV => Adicional features >>>>>
+    
+    
+    
 
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):

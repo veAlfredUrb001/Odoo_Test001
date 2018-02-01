@@ -20,7 +20,8 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    # 03:39 01/02/2018 LAV => 'depends': ['base'],
+    'depends': ['base', 'board'],
 
     # always loaded
     'data': [
@@ -30,6 +31,7 @@
         'views/templates.xml',
         'views/openacademy.xml',
         'views/partner.xml',
+        'views/session_board.xml',
         'rpt/reports.xml',
     ],
     # only loaded in demonstration mode

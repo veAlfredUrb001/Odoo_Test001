@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import timedelta
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api, exceptions, _
 
 # class openacademy(models.Model):
 #     _name = 'openacademy.openacademy'
@@ -28,12 +28,14 @@ class Course(models.Model):
     def copy(self, default=None):
         default = dict(default or {})
 
-        copied_count = self.search_count(
-            [('name', '=like', u"Copy of {}%".format(self.name))])
+        # 03:03 01/02/2018 => LAV copied_count = self.search_count([('name', '=like', u"Copy of {}%".format(self.name))])
+        copied_count = self.search_count([('name', '=like', _(u"Copy of {}%").format(self.name))])
         if not copied_count:
-            new_name = u"Copy of {}".format(self.name)
+            # 03:03 01/02/2018 => LAV new_name = u"Copy of {}".format(self.name)
+            new_name = _(u"Copy of {}").format(self.name)
         else:
-            new_name = u"Copy of {} ({})".format(self.name, copied_count)
+            # 03:03 01/02/2018 => LAV new_name = u"Copy of {} ({})".format(self.name, copied_count)
+            new_name = _(u"Copy of {} ({})").format(self.name, copied_count)
 
         default['name'] = new_name
         return super(Course, self).copy(default)
@@ -58,8 +60,7 @@ class Session(models.Model):
     color = fields.Integer()
     
     # instructor_id = fields.Many2one('res.partner', string="Instructor")
-    instructor_id = fields.Many2one('res.partner', string="Instructor", 
-        domain=['|', ('instructor', '=', True), ('category_id.name', 'ilike', "Teacher")])
+    instructor_id = fields.Many2one('res.partner', string="Instructor", domain=['|', ('instructor', '=', True), ('category_id.name', 'ilike', "Teacher")])
     course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
 
@@ -86,15 +87,19 @@ class Session(models.Model):
         if self.seats < 0:
             return {
                 'warning': {
-                    'title': "Incorrect 'seats' value",
-                    'message': "The number of available seats may not be negative",
+                    # 03:03 01/02/2018 => LAV 'title': "Incorrect 'seats' value",
+                    'title': _("Incorrect 'seats' value"),
+                    # 03:03 01/02/2018 => LAV 'message': "The number of available seats may not be negative",
+                    'message': _("The number of available seats may not be negative"),
                 },
             }
         if self.seats < len(self.attendee_ids):
             return {
                 'warning': {
-                    'title': "Too many attendees",
-                    'message': "Increase seats or remove excess attendees",
+                    # 03:03 01/02/2018 => LAV 'title': "Too many attendees",
+                    'title': _("Too many attendees"),
+                    # 03:03 01/02/2018 => LAV 'message': "Increase seats or remove excess attendees",
+                    'message': _("Increase seats or remove excess attendees"),
                 },
             }
 
@@ -144,7 +149,8 @@ class Session(models.Model):
     def _check_instructor_not_in_attendees(self):
         for r in self:
             if r.instructor_id and r.instructor_id in r.attendee_ids:
-                raise exceptions.ValidationError("A session's instructor can't be an attendee")
+                # 03:03 01/02/2018 => LAV raise exceptions.ValidationError("A session's instructor can't be an attendee")
+                raise exceptions.ValidationError(_("A session's instructor can't be an attendee"))
 
 
 

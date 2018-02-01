@@ -1,19 +1,16 @@
 <odoo>
     <data>
         <record model="openacademy.course" id="course0">
-            <field name="name">Course 0</field>
-            <field name="description">Course 0's description
-
-Can have multiple lines
-            </field>
+            <field name="name">Developing SQL Databases</field>
+            <field name="description">Learn the technologies and features needed to create and design SQL databases, including how to implement SQL views, indexes and tables.</field>
         </record>
         <record model="openacademy.course" id="course1">
-            <field name="name">Course 1</field>
-            <!-- no description for this one -->
+            <field name="name">Cybersecurity Fundamentals</field>
+            <field name="description">Learn cybersecurity fundamentals, including how to detect threats, protect systems and networks, and anticipate potential cyber attacks</field>
         </record>
         <record model="openacademy.course" id="course2">
-            <field name="name">Course 2</field>
-            <field name="description">Course 2's description</field>
+            <field name="name">Introduction to Java Programming – Part 1</field>
+            <field name="description">Learn the fundamental elements of Java programming and data abstraction</field>
         </record>
     </data>
 </odoo>

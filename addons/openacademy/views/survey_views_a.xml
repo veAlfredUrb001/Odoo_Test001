@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+
+        <!-- Extend original survey.view - Add openacademyexam field to existing view -->
+        <record model="ir.ui.view" id="view_survey_form_inherit">
+            <field name="name">Form view for survey</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="OpenAcademy Sessions">
+                        <group>
+                            <field name="openacademyexam"/>
+                            <field name="exams_ids"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
+</odoo>

@@ -1,0 +1,88 @@
+<odoo>
+
+    <report
+        id="rpt_survey_answ"
+        model="survey.survey"
+        string="Survey Results Report"
+        name="openacademy.rpt_survey_view"
+        file="openacademy.rpt_survey"
+        report_type="qweb-pdf" />
+
+    <template id="rpt_survey_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- <<<<< 11:08 04/02/2018 LAV -->
+                        <h1><span t-field="doc.title"/></h1>
+                        <t t-foreach="doc.user_input_ids" t-as="survey_usrinput" >
+                            <t t-if="survey_usrinput.state == 'done'">
+                                <h2 t-field="survey_usrinput.partner_id" />
+                                <t t-foreach="doc.page_ids" t-as="survey_page">
+                                    <h2 t-field="survey_page.title"></h2>
+                                    <h4 t-field="survey_page.description"></h4>
+                                    <h3>Question's:</h3>
+                                    <t t-foreach="survey_page.question_ids" t-as="survey_questions">
+                                        <!-- <t t-set="input_summary" t-value="doc['input_summary']"/> -->
+                                        <h4>
+                                            <!-- <b>Question </b> -->
+                                            <span t-field="survey_questions.question"></span>
+                                            <t t-if="survey_questions.type == 'matrix'">
+                                                <small><span>Matrix: <span t-field="survey_questions.matrix_subtype"/></span></small>
+                                            </t>
+                                            <t t-if="survey_questions.type in ['simple_choice', 'multiple_choice']">
+                                                <small><span t-field="survey_questions.type"></span></small>
+                                            </t>
+                                        </h4>
+                                        <t t-if="survey_questions.description">
+                                            <div class="text-muted oe_no_empty" t-field="survey_questions.description" />
+                                        </t>
+                                        <!-- <t t-if="survey_questions.type in ['textbox', 'free_text', 'date']"> -->
+                                        <table class="table table-hover table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <!-- <th>#</th> -->
+                                                    <th>User Responses</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- <t t-set="text_result" t-value="prepare_result"/> -->
+                                                <tr t-foreach="survey_questions.user_input_line_ids" t-as="survey_usrinline">
+                                                    <t t-if="survey_questions.type == 'free_text'">
+                                                        <td>
+                                                            <span t-field="survey_usrinline.value_free_text" /><br/>
+                                                        </td>
+                                                    </t>
+                                                    <t t-if="survey_questions.type == 'textbox'">
+                                                        <td>
+                                                            <span t-field="survey_usrinline.value_text" /><br/>
+                                                        </td>
+                                                    </t>
+                                                    <t t-if="survey_questions.type == 'date'">
+                                                        <td>
+                                                            <span t-field="survey_usrinline.value_date" /><br/>
+                                                        </td>
+                                                    </t>
+                                                    <!-- <t t-if="survey_questions.type in ['simple_choice', 'multiple_choice']"> -->
+                                                    <t t-if="survey_usrinline.answer_type == 'suggestion'">
+                                                        <!-- <t t-foreach="survey_questions.labels_ids" t-as="survey_labels"> -->
+                                                            <td>
+                                                                <!-- <span t-field="survey_labels.value" /><br/> -->
+                                                                <span t-field="survey_usrinline.value_suggested" /><br/>
+                                                            </td>
+                                                        <!-- </t> -->
+                                                    </t>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    
+</odoo>
